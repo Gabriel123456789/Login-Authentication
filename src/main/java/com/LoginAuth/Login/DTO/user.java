@@ -11,9 +11,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
+@Table(name="users")
 @Data
 public class user implements UserDetails {
     @Id
@@ -37,6 +39,11 @@ public class user implements UserDetails {
     public String getUsername() {
         // IMPORTANTE: O "username" para o Spring Security será o nosso e-mail.
         return this.email;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
     }
 
     // Eles servem para desabilitar contas, bloquear, etc.

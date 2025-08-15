@@ -21,6 +21,7 @@ import com.LoginAuth.Login.repository.AuthRepository;
 public class AuthServiceImpl implements AuthService {
     @Autowired
     private AuthRepository authRepository;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -46,6 +47,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
     private JwtService jwtservice;
 
 
