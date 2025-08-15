@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Service;
 
-import com.LoginAuth.Login.DTO.user;
+import com.LoginAuth.Login.DTO.User;
 import com.LoginAuth.Login.DTO.userLoginRequest;
 import com.LoginAuth.Login.DTO.userRegister;
 import com.LoginAuth.Login.DTO.userResponse;
@@ -28,16 +28,16 @@ public class AuthServiceImpl implements AuthService {
     public userResponse registerUser(userRegister registrationDTO){
         //Conferir se existe o email
         String emailUser = registrationDTO.getEmail();
-        Optional<user> emailExistente = authRepository.findByEmail(emailUser);
+    Optional<User> emailExistente = authRepository.findByEmail(emailUser);
         if(emailExistente.isPresent()){
             throw new RuntimeException("Erro: E-mail já cadastrado.");
         }
         else{
-            user newUser = new user();
+            User newUser = new User();
             newUser.setEmail(emailUser);
             String hashedPassword = passwordEncoder.encode(registrationDTO.getPassword());
             newUser.setPassword(hashedPassword);
-            user savedUser = authRepository.save(newUser);
+            User savedUser = authRepository.save(newUser);
             userResponse response = new userResponse();
             response.setEmail(savedUser.getEmail());
             response.setUser_id(savedUser.getId());
