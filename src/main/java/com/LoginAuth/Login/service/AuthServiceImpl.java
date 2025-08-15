@@ -4,7 +4,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Service;
 
 import com.LoginAuth.Login.DTO.user;
@@ -47,7 +51,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String login(userLoginRequest loginRequest){
-        
+        var usernamePassword = new UsernamePasswordAuthenticationToken(
+            loginRequest.getEmail(),
+            loginRequest.getPassword()
+        );
+        Authentication authentication = authenticationManager.authenticate(usernamePassword);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String jwtToken = jwtservice.generateToken(userDetails);
+        return jwtToken;
     }
 
 

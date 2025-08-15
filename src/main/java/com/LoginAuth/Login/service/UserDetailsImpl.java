@@ -1,0 +1,19 @@
+package com.LoginAuth.Login.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.LoginAuth.Login.repository.AuthRepository;
+
+public class UserDetailsImpl implements UserDetailsService {
+    @Autowired
+    private AuthRepository authRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // "Username" aqui é o nosso e-mail.
+        return authRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com o e-mail: " + username));
+    }
+}
