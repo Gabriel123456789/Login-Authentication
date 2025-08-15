@@ -3,7 +3,7 @@ package com.LoginAuth.Login.DTO;
 import lombok.Data;
 
 @Data
-public class userResponse {
-    private Long user_id;
+public class userLoginRequest {
     private String email;
+    private String password;
 }
