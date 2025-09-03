@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  login-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: login-application
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - database
+    networks:
+      - login-network
+    restart: unless-stopped
+
+  database:
+    image: postgres:17-alpine
+    container_name: login-database
+    environment:
+      POSTGRES_DB: AuthUsers
+      POSTGRES_USER: gabs
+      POSTGRES_PASSWORD: 4581
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - login-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  login-network:
+    driver: bridge

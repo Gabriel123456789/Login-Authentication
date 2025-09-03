@@ -22,11 +22,11 @@ import com.LoginAuth.Login.Controller.JwtAuthenticationFilter;
 @Configuration
 public class SecurityConfig {
 
-    // 1. Declare as dependências como 'final'
+    // Declara as dependências como 'final'
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserDetailsService userDetailsService;
 
-    // 2. Crie um construtor para que o Spring injete as dependências
+    // Cria um construtor para que o Spring injete as dependências
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, UserDetailsService userDetailsService) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.userDetailsService = userDetailsService;
