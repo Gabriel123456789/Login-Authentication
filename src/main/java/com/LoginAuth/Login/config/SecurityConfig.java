@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.LoginAuth.Login.Controller.JwtAuthenticationFilter;
 
-// Adicione esta anotação para habilitar a segurança web do Spring
+// Adiciona esta anotação para habilitar a segurança web do Spring
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
@@ -37,11 +37,13 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/auth/**",
+                                    "/ping",
+                                    "/swagger-ui/**",
+                                    "/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authenticationProvider(authenticationProvider())
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
