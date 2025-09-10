@@ -74,7 +74,7 @@ O projeto já continha a dependência necessária:
 <dependency>
     <groupId>org.springdoc</groupId>
     <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-    <version>2.5.0</version>
+    <version>2.8.0</version>
 </dependency>
 ```
 
